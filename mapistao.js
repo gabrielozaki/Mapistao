@@ -114,6 +114,21 @@ Map.prototype.addPolygon = function(path){
 }
 
 
+//Add a cicle in map
+Map.prototype.addCircle = function(circle){
+	var circ = new google.maps.Circle({
+				center:circle.center,
+				radius:circle.radius,
+				strokeColor:circle.color,
+				strokeOpacity:circle.opacity,
+				strokeWeight:circle.weight,
+				fillColor:circle.fill_color,
+				fillOpacity:circle.fill_opacity
+			})
+
+	circ.setMap(this.map);
+}
+
 
 //STROKE CLASS
 //Stroke is a set of points with some propertys
@@ -155,4 +170,16 @@ Polygon.prototype.addPoint = function(lat,lng){
 	this.points.push(new google.maps.LatLng(lat,lng));
 }
 
+
+//CIRCLE CLASS
+//Only latitude, longitude and radius are required
+var Circle = function(lat,lng,radius,color = '#0000FF',fill_color = '#0000FF',weight = 2, opacity=0.8,fill_opacity=0.4){
+	this.center = new google.maps.LatLng(lat,lng);
+	this.radius = radius;
+	this.color 			= color;
+	this.fill_color 	= fill_color;
+	this.weight 	 	= weight;
+	this.opacity 		= opacity;
+	this.fill_opacity 	= fill_opacity;
+}
 

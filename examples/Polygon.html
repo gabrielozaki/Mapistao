@@ -10,13 +10,21 @@ function initialize() {
 
 	map = new Map("googleMap");
 
-	map.setCenter(-22.12488,-51.41180)
+	map.setCenter(-22.12488,-51.41180);
 	map.setType("combined");
 	map.setZoom(15);
 
 	map.init();  
 
-	polygon = new Polygon('#FF0000','#FFFF00',2,0.8,0.4);
+	//A polygon without parameters will use a default model
+	polygon = new Polygon();
+
+	//The parameters are:
+	//Border Color, Fill Color, Weight of line, Border Opacity,Fill Opacity
+	//Is possible not to use all the parameters, but you need to use then in order, like:
+	//Border Color, Fill Color
+	//Example with full parameters
+	//polygon = new Polygon('#FF0000','#FFFF00',2,0.8,0.4);
 	polygon.addPoint(-22.12388,-51.4128);
 	polygon.addPoint(-22.12388,-51.4108);
 	polygon.addPoint(-22.12588,-51.4108);
@@ -46,10 +54,10 @@ function initialize() {
 
 	var polygon_on_map=new google.maps.Polygon({
 				path:path,
-				strokeColor:"#FF0000",
+				strokeColor:"#0000FF",
 				strokeOpacity:0.8,
 				strokeWeight:2,
-				fillColor:"#FFFF00",
+				fillColor:"#0000FF",
 				fillOpacity:0.4
 
 			})
