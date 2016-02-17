@@ -69,13 +69,24 @@ Map.prototype.init = function(){
 } 
 
 //Creates a new marker
-Map.prototype.addMarker = function(lat,lng,info = ""){
-	var marker 	= new google.maps.Marker({position:new google.maps.LatLng(lat,lng)});
-	marker.setMap(this.map);
+Map.prototype.addMarker = function(marker){
+	var mark 	= new google.maps.Marker({
+		position:marker.position,
+		title:marker.title,
+		animation:marker.animation,
+		draggable:marker.draggable,
+		label:marker.label,
+		icon:marker.icon
+		});
+	mark.setMap(this.map);
 
-	if(info != ""){
-		var content	= new google.maps.InfoWindow({ content:info	});
-		google.maps.event.addListener(marker,'click',function(){ content.open(this.map,marker);});
+	if(marker.info != ""){
+		var content	= new google.maps.InfoWindow({ 
+			content:marker.info
+			});
+		google.maps.event.addListener(mark,'click',function(){ 
+				content.open(this.map,mark);
+				});
 	}
 
 	
@@ -83,34 +94,34 @@ Map.prototype.addMarker = function(lat,lng,info = ""){
 
 //Add a line in map
 //The param is a object of Line
-Map.prototype.addStroke = function(path){
-	var stroke = new google.maps.Polyline({
-		path:path.points,
-		strokeColor:path.color,
-		strokeOpacity:path.opacity,
-		strokeWeight:path.weight
+Map.prototype.addStroke = function(stroke){
+	var stro = new google.maps.Polyline({
+		path:stroke.points,
+		strokeColor:stroke.color,
+		strokeOpacity:stroke.opacity,
+		strokeWeight:stroke.weight
 			});
 
-	stroke.setMap(this.map)
+	stro.setMap(this.map)
 }
 
 //Add a polygon in map
 //The param is a object of Polygon
-Map.prototype.addPolygon = function(path){
+Map.prototype.addPolygon = function(polygon){
 	//Dont need convert, already on google format
 	//the first and the last points need to be the same
-	path.points.push(path.points[0]);
+	polygon.points.push(polygon.points[0]);
 
-	var polygon = new google.maps.Polygon({
-		path:path.points,
-		strokeColor:path.color,
-		strokeOpacity:path.opacity,
-		strokeWeight:path.weight,
-		fillColor:path.fill_color,
-		fillOpacity:path.fill_opacity
+	var poly = new google.maps.Polygon({
+		path:polygon.points,
+		strokeColor:polygon.color,
+		strokeOpacity:polygon.opacity,
+		strokeWeight:polygon.weight,
+		fillColor:polygon.fill_color,
+		fillOpacity:polygon.fill_opacity
 			});
 
-	polygon.setMap(this.map)
+	poly.setMap(this.map)
 }
 
 
@@ -127,6 +138,44 @@ Map.prototype.addCircle = function(circle){
 			})
 
 	circ.setMap(this.map);
+}
+
+//MARKER CLASS
+//Marker is a single point, pop up information are optional
+//Is required to set latitude and 
+var Marker = function(lat,lng,info = ""){
+	this.position 	= new google.maps.LatLng(lat,lng);
+	this.title 		= "";
+	this.info  		= info;
+	this.animation 	= null;
+	this.draggable  = false;
+	this.label 		= "";
+	this.icon 		= "";
+}
+
+//Set animation
+//There is 3 types, Bounce(jumping marker), Drop and none
+Marker.prototype.setAnimation = function(type){
+	str = type.toLowerCase();
+	switch(str){
+		case "bounce":
+			this.animation = google.maps.Animation.BOUNCE;
+			break;
+		case "drop":
+			this.animation = google.maps.Animation.DROP;
+			break;
+		default:
+			this.animation;	
+	}
+}
+
+Marker.prototype.setIcon = function(url,width,height){
+	this.icon = {
+		url:url,
+		size:new google.maps.Size(width,height),
+		origin:new google.maps.Point(0, 0),
+		scaledSize:new google.maps.Size(width,height)
+	}
 }
 
 

@@ -1,0 +1,86 @@
+<html>
+<head>
+<!--Carrega a api do google -->
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="../mapistao.js"></script>
+
+<script>
+
+function initialize() {
+
+  var map = new Map("googleMap");
+
+  map.setCenter(-22.12126,-51.40713);
+  map.setType("combined");
+  map.setZoom(20);
+
+  map.init();  
+
+  //There is many ways to use markers, this page will explain all the functions of marker class
+
+  //The classic way
+  marker1 =  new Marker(-22.12046,-51.40713,"<h1>test1</h1><br /> />test2");
+  map.addMarker(marker1);
+  
+  //The simple way (note: the info is not used)
+  marker2 =  new Marker(-22.12076,-51.40733);
+  map.addMarker(marker2);
+
+  //Simple way plus information
+  marker3 		=  new Marker(-22.12076,-51.40713);
+  marker3.info 	= "test3";
+  map.addMarker(marker3);
+
+  //You can use the marker object multiple times
+  reused = new Marker(-22.12096,-51.40733,"use1");
+  map.addMarker(reused);
+
+  reused = new Marker(-22.12096,-51.40713,"use2");
+  map.addMarker(reused);
+
+  reused = new Marker(-22.12096,-51.40693,"use3");
+  map.addMarker(reused);
+
+  //Markers can have a title, like a tooltip when you place a mouse over him
+  //Note: we will use only marker variable now
+  marker = new Marker(-22.12126,-51.40733);
+  marker.title = "Hello World"; //You can use title and info at the same time
+  map.addMarker(marker);
+
+  //Markers can be animated
+  //Google give to us 2 type of animation, drop and bounce
+  marker = new Marker(-22.12126,-51.40713);
+  marker.setAnimation("bounce");
+  //marker.setAnimation("drop");
+  map.addMarker(marker);
+
+  //Markers can be draggable
+  // To test is the on the right of bounce marker  
+  marker = new Marker(-22.12126,-51.40693);
+  marker.draggable = true;
+  map.addMarker(marker);
+
+  //Markers supports labels
+  marker = new Marker(-22.12156,-51.40733);
+  //Only one character, number or Specials(! @ # &)
+  marker.label = "@";
+  map.addMarker(marker);
+
+  //Markers supports custom images
+  marker = new Marker(-22.12156,-51.40713);
+  marker.setIcon('icon.jpg',40,30);
+  map.addMarker(marker);
+
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</head>
+
+<body>
+<!--Aonde vai ser carregado o mapa -->
+<div id="googleMap" style="width:100%;height:100%;"></div>
+</body>
+
+</html> 
+

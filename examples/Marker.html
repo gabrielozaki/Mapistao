@@ -16,9 +16,14 @@ function initialize() {
 
   map.init();  
 
-  map.addMarker(-22.12046,-51.40713,"<h1>test1</h1><br />test2");
-  map.addMarker(-22.12076,-51.40733);
-  map.addMarker(-22.12076,-51.40713,"test3");
+  marker1 =  new Marker(-22.12046,-51.40713,"<h1>test1</h1><br /> />test2");
+  map.addMarker(marker1);
+  
+  marker2 =  new Marker(-22.12076,-51.40733);
+  map.addMarker(marker2);
+
+  marker3 =  new Marker(-22.12076,-51.40713,"test3");
+  map.addMarker(marker3);
 
  
 	// this code do the same thing with google sintax 
